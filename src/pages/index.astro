@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title="Websites for Northern Ireland Solicitors | NI Solicitor Websites"
+  description="Professional, easy-to-manage websites built specifically for solicitors and law firms across Northern Ireland."
+>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">For Northern Ireland law firms</span>
+      <h1>Websites built for solicitors, not agencies</h1>
+      <p class="lede">
+        Clear, professional websites that win the right enquiries — designed and
+        looked after by one person who actually answers the phone.
+      </p>
+      <div class="hero-cta">
+        <a href="/#contact" class="btn">Get a free website review</a>
+        <a href="/blog" class="btn btn--ghost">Read the guides</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section">
+    <div class="container">
+      <span class="eyebrow">What we do</span>
+      <h2 style="max-width:18ch;">Everything your firm's website needs, handled</h2>
+      <div class="post-grid" style="margin-top:2.5rem;">
+        <div class="post-card">
+          <h3>New websites</h3>
+          <p>A clean, credible site that reflects how your firm actually works — built to be found and easy to update.</p>
+        </div>
+        <div class="post-card">
+          <h3>Redesigns &amp; rescues</h3>
+          <p>Tired, slow or broken sites brought up to standard without the agency runaround or the agency invoice.</p>
+        </div>
+        <div class="post-card">
+          <h3>Ongoing care</h3>
+          <p>Updates, security, backups and small changes kept on top of so you never have to think about it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECENT GUIDES -->
+  {posts.length > 0 && (
+    <section class="section" style="background:var(--paper-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+      <div class="container">
+        <span class="eyebrow">Guides</span>
+        <h2>Plain-English advice for law firms</h2>
+        <div class="post-grid" style="margin-top:2.5rem;">
+          {posts.map((post) => (
+            <a class="post-card" href={`/blog/${post.slug}`}>
+              <div class="post-meta">
+                <span class="post-tag">{post.data.tag}</span>
+                <span class="post-date">
+                  {post.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </span>
+              </div>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact-section">
+    <div class="container">
+      <div class="contact-inner">
+        <span class="eyebrow">Get in touch</span>
+        <h2>Free website review</h2>
+        <p>Tell us about your firm's site and we'll take a proper look — no obligation, no sales pitch.</p>
+        <div class="fillout-wrapper">
+          <div
+            style="width:100%;height:500px;"
+            data-fillout-id="jYdzYYJ7r9us"
+            data-fillout-embed-type="standard"
+            data-fillout-inherit-parameters
+            data-fillout-dynamic-resize
+          ></div>
+          <script src="https://server.fillout.com/embed/v1/"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

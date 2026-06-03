@@ -1,0 +1,24 @@
+---
+const links = [
+  { href: '/#services', label: 'What We Do' },
+  { href: '/blog', label: 'Guides' },
+  { href: '/#contact', label: 'Get in Touch' },
+];
+---
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">NI Solicitor Websites</a>
+    <ul class="nav-links" id="navLinks">
+      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+    </ul>
+    <a href="/#contact" class="btn" style="padding:0.6rem 1.2rem;">Free Review</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">&#9776;</button>
+  </div>
+</nav>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle?.addEventListener('click', () => links?.classList.toggle('open'));
+</script>

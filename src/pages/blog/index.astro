@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout
+  title="Guides for NI Law Firms | NI Solicitor Websites"
+  description="Plain-English guides on websites, costs and online presence for solicitors and law firms in Northern Ireland."
+>
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Guides</span>
+      <h2>Website advice for Northern Ireland law firms</h2>
+      <p style="max-width:55ch; color:var(--ink-soft);">
+        Straight answers to the questions firms actually ask before commissioning
+        or replacing a website.
+      </p>
+
+      {posts.length === 0 ? (
+        <p style="margin-top:2rem; color:var(--muted);">Guides are on the way.</p>
+      ) : (
+        <div class="post-grid" style="margin-top:2.5rem;">
+          {posts.map((post) => (
+            <a class="post-card" href={`/blog/${post.slug}`}>
+              <div class="post-meta">
+                <span class="post-tag">{post.data.tag}</span>
+                <span class="post-date">
+                  {post.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </span>
+              </div>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

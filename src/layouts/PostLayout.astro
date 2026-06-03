@@ -1,0 +1,36 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  tag: string;
+  pubDate: Date;
+}
+
+const { title, description, tag, pubDate } = Astro.props;
+const dateStr = pubDate.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<BaseLayout title={`${title} | NI Solicitor Websites`} description={description}>
+  <article>
+    <header class="post-header">
+      <div class="post-meta" style="justify-content:center;">
+        <span class="post-tag">{tag}</span>
+        <span class="post-date">{dateStr}</span>
+      </div>
+      <h1>{title}</h1>
+    </header>
+    <div class="post-body">
+      <slot />
+      <div class="post-nav">
+        <a href="/blog">&larr; All guides</a>
+        <a href="/#contact">Get a free review &rarr;</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

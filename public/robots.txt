@@ -1,0 +1,11 @@
+# =====================================================================
+# TEMPORARY URL — blocking all crawlers while on *.pages.dev
+# When the real domain is attached, REPLACE the contents of this file
+# with the production version below (delete the Disallow line):
+#
+#   User-agent: *
+#   Allow: /
+#   Sitemap: https://nisolicitorwebsites.co.uk/sitemap-index.xml
+# =====================================================================
+User-agent: *
+Disallow: /
