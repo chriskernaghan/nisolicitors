@@ -13,17 +13,19 @@ const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
 >
   <section class="section">
     <div class="container">
-      <span class="eyebrow">Guides</span>
-      <h2>Website advice for Northern Ireland law firms</h2>
-      <p style="max-width:55ch; color:var(--ink-soft);">
-        Straight answers to the questions firms actually ask before commissioning
-        or replacing a website.
-      </p>
+      <div class="section-head">
+        <span class="eyebrow">Guides</span>
+        <h2>Website advice for Northern Ireland law firms</h2>
+        <p>
+          Straight answers to the questions firms actually ask before
+          commissioning or replacing a website.
+        </p>
+      </div>
 
       {posts.length === 0 ? (
         <p style="margin-top:2rem; color:var(--muted);">Guides are on the way.</p>
       ) : (
-        <div class="post-grid" style="margin-top:2.5rem;">
+        <div class="post-grid">
           {posts.map((post) => (
             <a class="post-card" href={`/blog/${post.slug}`}>
               <div class="post-meta">
