@@ -1,14 +1,14 @@
 ---
 const links = [
-  { href: '/#services', label: 'What We Do' },
-  { href: '/blog', label: 'Guides' },
+  { href: '/#guides', label: 'Guides' },
+  { href: '/#services', label: 'What I Do' },
   { href: '/#contact', label: 'Get in Touch' },
 ];
 ---
 
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="/" class="nav-brand">NI Solicitor Websites</a>
+    <a href="/" class="nav-brand">Websites for Solicitors</a>
     <ul class="nav-links" id="navLinks">
       {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
     </ul>
