@@ -1,9 +1,3 @@
-{
-  "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
-}
-
 import { defineCollection, z } from 'astro:content';
 
 const posts = defineCollection({
