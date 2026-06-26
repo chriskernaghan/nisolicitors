@@ -4,120 +4,126 @@ import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('posts', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+  .slice(0, 5);
 ---
 
 <BaseLayout
-  title="Websites for Northern Ireland Solicitors | NI Solicitor Websites"
-  description="Professional, easy-to-manage websites built specifically for solicitors and law firms across Northern Ireland."
+  title="Websites for Solicitors | Web Design for Northern Ireland Law Firms"
+  description="Plain-English advice on websites for solicitors and law firms in Northern Ireland, from someone who builds them. Guides first, no hard sell."
 >
-  <!-- HERO -->
+  <!-- HERO: perspective, not product -->
   <section class="hero">
     <div class="hero-content">
-      <span class="eyebrow">For Northern Ireland law firms</span>
-      <h1>Websites built for solicitors, not agencies</h1>
+      <span class="eyebrow">Web advice for NI law firms</span>
+      <h1>Most law firm websites are built by people who've never worked with a firm</h1>
       <p class="lede">
-        Clear, professional websites that win the right enquiries, looked after
-        by one person who actually answers the phone.
+        This is a small library of plain-English advice on getting your firm's
+        website right, written by someone in Northern Ireland who builds them
+        for a living. Read first. Talk to me if and when it's useful.
       </p>
       <div class="hero-cta">
-        <a href="/#contact" class="btn">Get a free website review</a>
-        <a href="/blog" class="btn btn--ghost">Read the guides</a>
+        <a href="#guides" class="btn">Read the guides</a>
+        <a href="#contact" class="link-arrow">Or get a free website review <span>&rarr;</span></a>
       </div>
     </div>
 
-    <!-- grainy gradient wave -->
     <div class="hero-wave" aria-hidden="true">
       <svg viewBox="0 0 1440 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0.4">
             <stop offset="0%" stop-color="#2f5fd8" />
-            <stop offset="30%" stop-color="#e8b04b" />
+            <stop offset="30%" stop-color="#c79532" />
             <stop offset="62%" stop-color="#2f5fd8" />
-            <stop offset="100%" stop-color="#e8b04b" />
+            <stop offset="100%" stop-color="#c79532" />
           </linearGradient>
           <filter id="grain">
             <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="noise" />
             <feColorMatrix in="noise" type="saturate" values="0" result="desat" />
             <feComponentTransfer in="desat" result="grain">
-              <feFuncA type="linear" slope="0.55" intercept="0" />
+              <feFuncA type="linear" slope="0.5" intercept="0" />
             </feComponentTransfer>
             <feComposite in="grain" in2="SourceGraphic" operator="in" />
           </filter>
-          <filter id="soften">
-            <feGaussianBlur stdDeviation="6" />
-          </filter>
+          <filter id="soften"><feGaussianBlur stdDeviation="6" /></filter>
         </defs>
-
-        <!-- soft base ribbon -->
         <path filter="url(#soften)"
           d="M -40 250 C 220 150, 420 360, 720 270 S 1180 140, 1480 250 L 1480 460 L -40 460 Z"
-          fill="url(#waveGrad)" opacity="0.55" />
-        <!-- crisper ribbon with grain texture -->
+          fill="url(#waveGrad)" opacity="0.5" />
         <path filter="url(#grain)"
           d="M -40 270 C 240 180, 460 380, 740 290 S 1200 170, 1480 270 L 1480 460 L -40 460 Z"
-          fill="url(#waveGrad)" opacity="0.9" />
+          fill="url(#waveGrad)" opacity="0.88" />
       </svg>
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section id="services" class="section">
+  <!-- GUIDES: the main event -->
+  <section id="guides" class="band">
     <div class="container">
+      <div class="index-label" data-index="01">Guides<span class="index-rule"></span></div>
       <div class="section-head">
-        <span class="eyebrow">What we do</span>
-        <h2>Everything your firm's website needs, handled</h2>
+        <h2>Straight answers, before you spend a penny</h2>
+        <p>The questions firms actually ask before commissioning or replacing a website, answered without the jargon or the sales spin.</p>
       </div>
-      <div class="card-grid">
-        <div class="feature-card">
+
+      {posts.length === 0 ? (
+        <p class="guides-empty">Guides are on the way.</p>
+      ) : (
+        <div class="guide-list">
+          {posts.map((post, i) => (
+            <a class="guide-entry" href={`/blog/${post.slug}`}>
+              <div class="guide-num">{String(i + 1).padStart(2, '0')}</div>
+              <div class="guide-main">
+                <div class="guide-meta">
+                  <span class="tag">{post.data.tag}</span>
+                  <span>{post.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                </div>
+                <h3 class="guide-title">{post.data.title}</h3>
+                <p class="guide-desc">{post.data.description}</p>
+              </div>
+              <div class="guide-go" aria-hidden="true">&rarr;</div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- WHAT I DO: demoted, quiet -->
+  <section id="services" class="band band--tint">
+    <div class="container">
+      <div class="index-label" data-index="02">And if you need a hand<span class="index-rule"></span></div>
+      <div class="section-head">
+        <h2>The building bit</h2>
+        <p>When a firm decides it's time, this is the work I take on. No account managers, no agency markup, just me.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-item">
           <h3>New websites</h3>
           <p>A clean, credible site that reflects how your firm actually works, built to be found and easy to update.</p>
         </div>
-        <div class="feature-card">
+        <div class="service-item">
           <h3>Redesigns &amp; rescues</h3>
-          <p>Tired, slow or broken sites brought up to standard without the agency runaround or the agency invoice.</p>
+          <p>Tired, slow or broken sites brought up to standard without the runaround.</p>
         </div>
-        <div class="feature-card">
+        <div class="service-item">
           <h3>Ongoing care</h3>
           <p>Updates, security, backups and small changes kept on top of, so you never have to think about it.</p>
         </div>
       </div>
+      <p class="services-note">
+        No obligation to take any of this up. The guides are there to be useful on their own.
+        If you'd like a second pair of eyes on your current site, <a href="#contact">ask for a free review</a>.
+      </p>
     </div>
   </section>
 
-  <!-- RECENT GUIDES -->
-  {posts.length > 0 && (
-    <section class="section" style="background:var(--paper-3); border-top:1px solid var(--line);">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Guides</span>
-          <h2>Plain-English advice for law firms</h2>
-        </div>
-        <div class="post-grid">
-          {posts.map((post) => (
-            <a class="post-card" href={`/blog/${post.slug}`}>
-              <div class="post-meta">
-                <span class="post-tag">{post.data.tag}</span>
-                <span class="post-date">
-                  {post.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-                </span>
-              </div>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.description}</p>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- CONTACT -->
-  <section id="contact" class="section contact-section">
+  <!-- CONTACT: soft -->
+  <section id="contact" class="band">
     <div class="container">
       <div class="contact-inner">
         <span class="eyebrow">Get in touch</span>
         <h2>Free website review</h2>
-        <p>Tell us about your firm's site and we'll take a proper look. No obligation, no sales pitch.</p>
+        <p>Tell me about your firm's site and I'll take a proper look and send back honest, specific notes. No obligation, no sales pitch.</p>
         <div class="fillout-wrapper">
           <div
             style="width:100%;height:500px;"
