@@ -402,3 +402,18 @@ img { max-width: 100%; display: block; }
   .services-split { grid-template-columns: 1fr; }
   .services-image { order: -1; max-width: 520px; }
 }
+
+/* ----- article header image ----- */
+.post-hero {
+  max-width: 1000px;
+  margin: 0 auto 2.5rem;
+  padding: 0 1.5rem;
+}
+.post-hero img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+}
