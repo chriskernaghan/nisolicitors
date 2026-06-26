@@ -3,7 +3,7 @@ title: "Does Your Firm Actually Need a New Website?"
 description: "Five honest signs your current site is costing you enquiries, and a few that mean it's fine as it is."
 tag: "Strategy"
 pubDate: 2026-06-10
-image: "/img/blog/new-website.svg"
+image: "/images/new-website.svg"
 imageAlt: "Placeholder image for the new website guide"
 draft: false
 ---

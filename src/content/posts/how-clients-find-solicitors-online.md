@@ -3,7 +3,7 @@ title: "How Clients Actually Find a Solicitor Online in Northern Ireland"
 description: "What really happens when someone searches for a solicitor near them, and the handful of things that decide whether your firm shows up."
 tag: "Getting Found"
 pubDate: 2026-06-17
-image: "/img/blog/getting-found.svg"
+image: "/images/getting-found.svg"
 imageAlt: "Placeholder image for the getting found guide"
 draft: false
 ---

@@ -3,7 +3,7 @@ title: "How Much Does a Solicitor Website Cost in Northern Ireland?"
 description: "A plain-English breakdown of what law firms in NI actually pay for a website, and what pushes the price up or down."
 tag: "Costs"
 pubDate: 2026-06-03
-image: "/img/blog/cost.svg"
+image: "/images/cost.svg"
 imageAlt: "Placeholder image for the cost guide"
 draft: false
 ---
