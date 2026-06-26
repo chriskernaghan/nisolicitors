@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://websitesforsolicitors.co.uk/sitemap-index.xml
