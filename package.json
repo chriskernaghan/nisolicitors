@@ -1,5 +1,5 @@
 {
-  "name": "ni-solicitor-websites",
+  "name": "websites-for-solicitors",
   "type": "module",
   "version": "0.1.0",
   "scripts": {
@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.0.0"
+    "astro": "^5.0.0",
+    "@astrojs/sitemap": "^3.2.1"
   }
 }
