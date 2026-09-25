@@ -1,0 +1,7 @@
+# Stop the Cloudflare Pages addresses competing with the real domain in search.
+# Only matches *.pages.dev, so websitesforsolicitors.co.uk is unaffected.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
