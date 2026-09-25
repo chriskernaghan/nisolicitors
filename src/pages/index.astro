@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GuidePreview from '../components/GuidePreview.astro';
 import { getCollection } from 'astro:content';
+import { homeSchema } from '../lib/schema';
 
 /* Homepage shows three guides. The cost guide leads because it's the one
    picking up search impressions; edit this list to change the order. */
