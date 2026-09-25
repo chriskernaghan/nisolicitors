@@ -13,12 +13,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
 /* =====================================================================
    SINGLE SWITCH FOR THE WHOLE SITE.
-   While the site lives on the temporary *.pages.dev URL, keep this true
-   so Google does NOT index the temp domain (avoids duplicate content
-   when the real domain is attached later).
-   When you attach the real domain, set this to false and redeploy.
+   Set to true to stop Google indexing (e.g. on a temporary domain).
    ===================================================================== */
 const NOINDEX = false;
+
+const fonts =
+  'https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap';
 ---
 
 <!doctype html>
@@ -30,6 +30,7 @@ const NOINDEX = false;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#FAFAF7" />
 
     {NOINDEX && <meta name="robots" content="noindex, nofollow" />}
 
@@ -39,21 +40,11 @@ const NOINDEX = false;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
 
-    <!-- Async fonts: Fraunces (display) + Inter Tight (body) -->
+    <!-- Async fonts: Schibsted Grotesk (headings, UI) + Newsreader (reading copy) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter+Tight:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter+Tight:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
-      />
-    </noscript>
+    <link rel="stylesheet" href={fonts} media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href={fonts} /></noscript>
   </head>
   <body>
     <Nav />
