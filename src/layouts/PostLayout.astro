@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import GuidePreview from '../components/GuidePreview.astro';
+import { articleSchema } from '../lib/schema';
 
 export interface Props {
   slug: string;
@@ -8,11 +9,12 @@ export interface Props {
   description: string;
   tag: string;
   pubDate: Date;
+  updatedDate?: Date;
   image?: string;
   imageAlt?: string;
 }
 
-const { slug, title, description, tag, pubDate, image, imageAlt } = Astro.props;
+const { slug, title, description, tag, pubDate, updatedDate, image, imageAlt } = Astro.props;
 
 /* Placeholder SVGs fall back to the guide's illustration; a real photo (jpg, png, webp) is shown as-is. */
 const usePhoto = image && !image.endsWith('.svg');
@@ -23,7 +25,14 @@ const dateStr = pubDate.toLocaleDateString('en-GB', {
 });
 ---
 
-<BaseLayout title={`${title} | Websites for Solicitors`} description={description}>
+<BaseLayout
+  title={`${title} | Websites for Solicitors`}
+  description={description}
+  ogType="article"
+  publishedTime={pubDate}
+  modifiedTime={updatedDate ?? pubDate}
+  schema={articleSchema({ slug, title, description, pubDate, updatedDate, tag })}
+>
   <article>
     <header class="post-header">
       <div class="post-meta">
