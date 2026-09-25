@@ -1,7 +1,9 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import GuidePreview from '../components/GuidePreview.astro';
 
 export interface Props {
+  slug: string;
   title: string;
   description: string;
   tag: string;
@@ -10,7 +12,10 @@ export interface Props {
   imageAlt?: string;
 }
 
-const { title, description, tag, pubDate, image, imageAlt } = Astro.props;
+const { slug, title, description, tag, pubDate, image, imageAlt } = Astro.props;
+
+/* Placeholder SVGs fall back to the guide's illustration; a real photo (jpg, png, webp) is shown as-is. */
+const usePhoto = image && !image.endsWith('.svg');
 const dateStr = pubDate.toLocaleDateString('en-GB', {
   day: 'numeric',
   month: 'long',
@@ -21,25 +26,35 @@ const dateStr = pubDate.toLocaleDateString('en-GB', {
 <BaseLayout title={`${title} | Websites for Solicitors`} description={description}>
   <article>
     <header class="post-header">
-      <div class="post-meta" style="justify-content:center;">
+      <div class="post-meta">
         <span class="post-tag">{tag}</span>
-        <span class="post-date">{dateStr}</span>
+        <time class="post-date" datetime={pubDate.toISOString()}>{dateStr}</time>
       </div>
       <h1>{title}</h1>
+      <p class="post-standfirst">{description}</p>
     </header>
 
-    {image && (
-      <div class="post-hero">
+    <div class="post-hero">
+      {usePhoto ? (
         <img src={image} alt={imageAlt ?? ''} width="1000" height="560" />
-      </div>
-    )}
+      ) : (
+        <GuidePreview slug={slug} />
+      )}
+    </div>
 
     <div class="post-body">
       <slot />
-      <div class="post-nav">
-        <a href="/blog">&larr; All guides</a>
-        <a href="/#contact">Get a free review &rarr;</a>
-      </div>
+    </div>
+
+    <div class="post-cta">
+      <h2>Want a second pair of eyes on your site?</h2>
+      <p>Send me your firm's website and I'll email back honest, specific notes. No obligation.</p>
+      <a href="/#contact" class="btn">Get a free website review</a>
+    </div>
+
+    <div class="post-nav">
+      <a href="/blog/">All guides</a>
+      <a href="/#contact">Free website review</a>
     </div>
   </article>
 </BaseLayout>
