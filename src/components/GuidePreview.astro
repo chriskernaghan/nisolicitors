@@ -1,0 +1,65 @@
+---
+/* Small illustrated preview shown at the top of each guide card.
+   Matched to a post by slug; anything unmatched gets the generic page. */
+export interface Props {
+  slug: string;
+}
+const { slug } = Astro.props;
+
+const kind =
+  slug === 'how-much-does-a-solicitor-website-cost' ? 'cost'
+  : slug === 'does-your-firm-need-a-new-website' ? 'checklist'
+  : slug === 'how-clients-find-solicitors-online' ? 'search'
+  : 'page';
+
+const tick = 'M20 6L9 17l-5-5';
+const cross = 'M18 6L6 18M6 6l12 12';
+const checks = [
+  { ok: true, text: 'Loads quickly on a phone' },
+  { ok: true, text: 'Phone number easy to find' },
+  { ok: false, text: 'You can update it yourself' },
+  { ok: false, text: 'Brings in enquiries' },
+];
+---
+
+<div class={`preview preview--${kind}`} aria-hidden="true">
+  {kind === 'cost' && (
+    <div class="pv-bars">
+      <div class="pv-bar"><span>DIY builder</span><i class="pv-fill pv-fill--1"></i></div>
+      <div class="pv-bar"><span>Freelancer</span><i class="pv-fill pv-fill--2"></i></div>
+      <div class="pv-bar"><span>Agency</span><i class="pv-fill pv-fill--3"></i></div>
+    </div>
+  )}
+
+  {kind === 'checklist' && (
+    <ul class="pv-checklist">
+      {checks.map((c) => (
+        <li>
+          <svg class={c.ok ? 'pv-ok' : 'pv-no'} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d={c.ok ? tick : cross}></path></svg>
+          {c.text}
+        </li>
+      ))}
+    </ul>
+  )}
+
+  {kind === 'search' && (
+    <div class="pv-search">
+      <div class="pv-query">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        family solicitor near me
+      </div>
+      <div class="pv-result"><i class="pv-line pv-line--title"></i><i class="pv-line"></i></div>
+      <div class="pv-result pv-result--you"><b>Your firm</b><i class="pv-line"></i></div>
+      <div class="pv-result"><i class="pv-line pv-line--title pv-line--short"></i><i class="pv-line"></i></div>
+    </div>
+  )}
+
+  {kind === 'page' && (
+    <div class="pv-page">
+      <i class="pv-line pv-line--title"></i>
+      <i class="pv-line"></i>
+      <i class="pv-line"></i>
+      <i class="pv-line pv-line--short"></i>
+    </div>
+  )}
+</div>
